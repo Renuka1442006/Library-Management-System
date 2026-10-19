@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage library books, copies, and student loans in one place.">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Library Management System home">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span>Library<span class="brand-light">Desk</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="backend-status" id="backend-status" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          Checking server…
+        </span>
+        <span class="local-badge">Saved in this browser</span>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow">LIBRARY OVERVIEW</p>
+          <h1>Good day, librarian</h1>
+          <p class="subheading">Keep your collection organized and your readers happy.</p>
+        </div>
+        <button class="button button-primary" id="add-book-button" type="button">
+          <span aria-hidden="true">＋</span> Add a book
+        </button>
+      </section>
+
+      <section class="stats-grid" aria-label="Library statistics">
+        <article class="stat-card">
+          <div class="stat-icon icon-blue" aria-hidden="true">▤</div>
+          <div><p>Total titles</p><strong id="total-titles">0</strong></div>
+          <span class="stat-note">book records</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon icon-violet" aria-hidden="true">▣</div>
+          <div><p>Physical copies</p><strong id="total-copies">0</strong></div>
+          <span class="stat-note">in collection</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon icon-green" aria-hidden="true">✓</div>
+          <div><p>Available</p><strong id="available-copies">0</strong></div>
+          <span class="stat-note">ready to borrow</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon icon-amber" aria-hidden="true">↗</div>
+          <div><p>Currently issued</p><strong id="issued-copies">0</strong></div>
+          <span class="stat-note">with students</span>
+        </article>
+      </section>
+
+      <section class="panel books-panel" aria-labelledby="books-heading">
+        <div class="panel-heading">
+          <div>
+            <h2 id="books-heading">Book collection</h2>
+            <p>Search, organize, and manage your library inventory.</p>
+          </div>
+          <span class="record-count" id="book-count">0 books</span>
+        </div>
+        <div class="toolbar">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <span class="visually-hidden">Search by book ID, title, or author</span>
+            <input id="book-search" type="search" placeholder="Search by ID, title, or author">
+          </label>
+          <label class="filter-box">
+            <span class="visually-hidden">Filter by category</span>
+            <select id="category-filter">
+              <option value="">All categories</option>
+            </select>
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Book</th>
+                <th scope="col">Book ID</th>
+                <th scope="col">Category</th>
+                <th scope="col">Copies</th>
+                <th scope="col">Available</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="books-table-body"></tbody>
+          </table>
+          <div class="empty-state" id="books-empty" hidden>
+            <span class="empty-icon" aria-hidden="true">▤</span>
+            <h3>No books found</h3>
+            <p>Your library collection is empty. Add a book to get started.</p>
+            <button class="button button-secondary" id="empty-add-button" type="button">Add your first book</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel loans-panel" aria-labelledby="loans-heading">
+        <div class="panel-heading">
+          <div>
+            <h2 id="loans-heading">Recent loans</h2>
+            <p>Track issued copies and record returns.</p>
+          </div>
+          <span class="record-count" id="loan-count">0 records</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Student</th>
+                <th scope="col">Book</th>
+                <th scope="col">Issue ID</th>
+                <th scope="col">Issued</th>
+                <th scope="col">Returned</th>
+                <th scope="col">Status / action</th>
+              </tr>
+            </thead>
+            <tbody id="loans-table-body"></tbody>
+          </table>
+          <div class="empty-state compact-empty" id="loans-empty" hidden>
+            <p>No loans have been recorded yet.</p>
+          </div>
+        </div>
+      </section>
+      <footer class="page-footer">Your library records are stored locally in this browser.</footer>
+    </main>
+
+    <dialog class="form-dialog" id="book-dialog" aria-labelledby="book-dialog-title">
+      <form id="book-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">COLLECTION</p>
+            <h2 id="book-dialog-title">Add a book</h2>
+            <p class="dialog-description">Enter the book details and the number of physical copies.</p>
+          </div>
+          <button class="icon-button" type="button" data-close-dialog aria-label="Close dialog">×</button>
+        </div>
+        <input id="book-original-id" type="hidden">
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Book ID</span>
+            <input id="book-id" name="bookId" maxlength="50" required>
+          </label>
+          <label class="form-field">
+            <span>Category</span>
+            <input id="book-category" name="category" maxlength="60" placeholder="e.g. Fiction" required>
+          </label>
+          <label class="form-field field-full">
+            <span>Title</span>
+            <input id="book-title" name="title" maxlength="150" required>
+          </label>
+          <label class="form-field field-full">
+            <span>Author</span>
+            <input id="book-author" name="author" maxlength="100" required>
+          </label>
+          <label class="form-field field-full">
+            <span>Total copies</span>
+            <input id="book-quantity" name="quantity" type="number" min="1" step="1" required>
+            <small id="quantity-help">Enter a positive whole number.</small>
+          </label>
+        </div>
+        <div class="dialog-actions">
+          <button class="button button-secondary" type="button" data-close-dialog>Cancel</button>
+          <button class="button button-primary" type="submit" id="book-submit-button">Save book</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="form-dialog" id="issue-dialog" aria-labelledby="issue-dialog-title">
+      <form id="issue-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">NEW LOAN</p>
+            <h2 id="issue-dialog-title">Issue a book</h2>
+            <p class="dialog-description" id="issue-book-name"></p>
+          </div>
+          <button class="icon-button" type="button" data-close-dialog aria-label="Close dialog">×</button>
+        </div>
+        <input id="issue-book-id" type="hidden">
+        <label class="form-field">
+          <span>Student name</span>
+          <input id="student-name" maxlength="100" required>
+        </label>
+        <label class="form-field">
+          <span>Student ID</span>
+          <input id="student-id" maxlength="50" required>
+        </label>
+        <label class="form-field">
+          <span>Issue date</span>
+          <input id="issue-date" type="date" required>
+        </label>
+        <div class="dialog-actions">
+          <button class="button button-secondary" type="button" data-close-dialog>Cancel</button>
+          <button class="button button-primary" type="submit">Confirm issue</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
