@@ -41,7 +41,18 @@ In macOS or Linux, use `PORT=4000 npm start` instead.
 
 ## Run with Docker
 
-Build the image from the project directory:
+Docker Hub repository: [sakshinagare2112/devops](https://hub.docker.com/repository/docker/sakshinagare2112/devops).
+
+To download the published `latest` image and run it:
+
+```sh
+docker pull sakshinagare2112/devops:latest
+docker run --rm -p 3000:3000 sakshinagare2112/devops:latest
+```
+
+Then open [http://localhost:3000](http://localhost:3000).
+
+Alternatively, build and run the image locally from the project directory:
 
 ```sh
 docker build -t library-management-system .
