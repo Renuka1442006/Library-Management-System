@@ -39,6 +39,22 @@ npm start
 
 In macOS or Linux, use `PORT=4000 npm start` instead.
 
+## Run with Docker
+
+Build the image from the project directory:
+
+```sh
+docker build -t library-management-system .
+```
+
+Start the container and publish the app on port `3000`:
+
+```sh
+docker run --rm -p 3000:3000 library-management-system
+```
+
+Then open [http://localhost:3000](http://localhost:3000). To use a different host port, for example `8080`, run `docker run --rm -p 8080:3000 library-management-system` and open [http://localhost:8080](http://localhost:8080).
+
 ## Using the dashboard
 
 ### Manage books
@@ -85,6 +101,8 @@ The health indicator reports when the server is unavailable. An already-open pag
 │   ├── index.html   # Dashboard markup and forms
 │   ├── script.js    # UI behavior, validation, LocalStorage, health checks
 │   └── style.css    # Responsive styles
+├── Dockerfile       # Container image definition
+├── .dockerignore    # Excluded Docker build context files
 ├── package.json     # Project metadata, Express dependency, start command
 └── server.js        # Express static server and health endpoint
 ```
