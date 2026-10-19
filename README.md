@@ -13,6 +13,12 @@ A lightweight library dashboard for managing a book collection and student loans
 - Save changes in the current browser profile between visits.
 - Check whether the Express server is available from the dashboard.
 
+## Live deployment
+
+The application is deployed on Render and can be opened at [library-management-api-mjab.onrender.com](https://library-management-api-mjab.onrender.com). The service health endpoint is available at [`/api/health`](https://library-management-api-mjab.onrender.com/api/health).
+
+Book and loan records are still saved in each visitor's browser LocalStorage; using the live site does not share records between users or devices.
+
 ## Requirements
 
 - [Node.js](https://nodejs.org/) 18 or newer
