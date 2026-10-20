@@ -72,6 +72,41 @@ docker run --rm -p 3000:3000 library-management-system
 
 Then open [http://localhost:3000](http://localhost:3000). To use a different host port, for example `8080`, run `docker run --rm -p 8080:3000 library-management-system` and open [http://localhost:8080](http://localhost:8080).
 
+## Run with Prometheus and Grafana
+
+The Docker Compose stack starts the app, Prometheus, and Grafana. It requires Docker with the Compose plugin:
+
+```sh
+docker compose up --build
+```
+
+Open the services at:
+
+- App: [http://localhost:3000](http://localhost:3000)
+- Prometheus: [http://localhost:9090](http://localhost:9090)
+- Grafana: [http://localhost:3001](http://localhost:3001)
+
+The app exposes Prometheus metrics at [`/metrics`](http://localhost:3000/metrics), including default Node.js process metrics and HTTP request counts and durations. Prometheus uses [prometheus.yml](./prometheus.yml) to scrape `app:3000/metrics` every 15 seconds; `app` is the Docker Compose service name.
+
+### Configure Grafana
+
+1. Sign in to Grafana. The default first-run credentials are `admin` / `admin`; Grafana will prompt you to choose a new password.
+2. Select **Connections → Data sources → Add data source**, then choose **Prometheus**.
+3. Set the Prometheus server URL to `http://prometheus:9090` and select **Save & test**. Use the Compose service name here, not `localhost`.
+4. Create a dashboard and add panels using Prometheus queries such as:
+
+   ```promql
+   rate(http_request_duration_seconds_count[5m])
+   ```
+
+   This shows the request rate by method, route, and status. To graph the 95th percentile request duration:
+
+   ```promql
+   histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
+   ```
+
+Stop the stack with `Ctrl+C`, or run `docker compose down` in another terminal. Grafana dashboards and settings are not persisted when its container is removed.
+
 ## Using the dashboard
 
 ### Manage books
@@ -119,9 +154,11 @@ The health indicator reports when the server is unavailable. An already-open pag
 │   ├── script.js    # UI behavior, validation, LocalStorage, health checks
 │   └── style.css    # Responsive styles
 ├── Dockerfile       # Container image definition
+├── docker-compose.yml # App, Prometheus, and Grafana services
+├── prometheus.yml   # Prometheus scrape configuration
 ├── .dockerignore    # Excluded Docker build context files
 ├── package.json     # Project metadata, Express dependency, start command
-└── server.js        # Express static server and health endpoint
+└── server.js        # Express static server, health endpoint, and metrics
 ```
 
 ## Available command
