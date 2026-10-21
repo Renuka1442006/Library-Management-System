@@ -166,3 +166,33 @@ The health indicator reports when the server is unavailable. An already-open pag
 | Command | Description |
 | --- | --- |
 | `npm start` | Start the Express server (port `3000` by default). |
+
+
+## Kubernetes Deployment
+
+This section covers the deployment and orchestration of the Library Management System using Kubernetes as part of the DevOps workflow.
+
+### Objectives
+
+- Deploy the Library Management System container using Kubernetes.
+- Manage application Pods using a Kubernetes Deployment.
+- Expose the application using a Kubernetes Service.
+- Verify application status and troubleshoot deployment issues using `kubectl`.
+
+### Kubernetes Components
+
+| Component | Purpose |
+|---|---|
+| Deployment | Manages application replicas and maintains the desired state. |
+| Pod | Runs the application container. |
+| Service | Provides network access to the application Pods. |
+| kubectl | Command-line tool for interacting with a Kubernetes cluster. |
+
+### Deployment Workflow
+
+1. Build or use the existing Docker image of the Library Management System.
+2. Create a Kubernetes Deployment to run the application.
+3. Configure a Kubernetes Service to expose the application.
+4. Verify the Deployment, Pods, and Service using `kubectl`.
+5. Troubleshoot deployment issues using Pod logs and Kubernetes events.
+
