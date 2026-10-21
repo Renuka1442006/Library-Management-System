@@ -194,7 +194,4 @@ This section covers the deployment and orchestration of the Library Management S
 2. Create a Kubernetes Deployment to run the application.
 3. Configure a Kubernetes Service to expose the application.
 4. Verify the Deployment, Pods, and Service using `kubectl`.
-5. Troubleshoot deployment issues using Pod logs and Kubernetes events.
-
-//The Jenkins file is added and all configurations are done
-//new Jenkins
+5. Troubleshoot deployment issues using Pod logs and Kubernetes events
