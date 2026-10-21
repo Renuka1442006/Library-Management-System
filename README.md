@@ -196,3 +196,4 @@ This section covers the deployment and orchestration of the Library Management S
 4. Verify the Deployment, Pods, and Service using `kubectl`.
 5. Troubleshoot deployment issues using Pod logs and Kubernetes events.
 
+//The Jenkins file is added and all configurations are done
