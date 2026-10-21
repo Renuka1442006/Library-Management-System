@@ -4,7 +4,8 @@
   "description": "A beginner-friendly library dashboard using browser LocalStorage and Express.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node test.js"
   },
   "dependencies": {
     "express": "^4.21.2",

@@ -39,7 +39,18 @@ pipeline {
                 bat 'npm test --if-present'
             }
         }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
 
+        stage('Automated Testing') {
+            steps {
+                sh 'npm test'
+            }
+            
+        }
         stage('Build Docker Image') {
             steps {
                 bat 'docker --version'
