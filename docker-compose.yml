@@ -11,6 +11,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
     depends_on:
       - app
 
@@ -18,5 +19,11 @@ services:
     image: grafana/grafana
     ports:
       - "3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
+
+volumes:
+  prometheus-data:
+  grafana-data:
