@@ -195,3 +195,10 @@ This section covers the deployment and orchestration of the Library Management S
 3. Configure a Kubernetes Service to expose the application.
 4. Verify the Deployment, Pods, and Service using `kubectl`.
 5. Troubleshoot deployment issues using Pod logs and Kubernetes events
+
+### Collaborative Development
+
+1. This project follows a collaborative development workflow using Git and GitHub.
+2. Main branch: Contains the stable project version.
+3. Feature branches: Allow developers to make changes independently.
+4. Pull requests and merging: Help integrate reviewed changes into the main branch.
