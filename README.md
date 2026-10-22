@@ -104,7 +104,7 @@ The app exposes Prometheus metrics at [`/metrics`](http://localhost:3000/metrics
    ```promql
    histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
    ```
-
+hiiiii
 Stop the stack with `Ctrl+C`, or run `docker compose down` in another terminal. Grafana dashboards and settings are not persisted when its container is removed.
 
 ## Using the dashboard
