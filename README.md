@@ -104,7 +104,7 @@ The app exposes Prometheus metrics at [`/metrics`](http://localhost:3000/metrics
    ```promql
    histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
    ```
-hiiiii
+
 Stop the stack with `Ctrl+C`, or run `docker compose down` in another terminal. Grafana dashboards and settings are not persisted when its container is removed.
 
 ## Using the dashboard
@@ -117,7 +117,7 @@ Use the search box to match a book ID, title, or author, and the category menu t
 
 ### Issue and return books
 
-Select **Issue** on a book with an available copy, then enter the student's name and ID and confirm the issue date. The loan appears in **Recent loans**. Select **Return** and confirm when the book is returned; the return date is recorded and that copy becomes available again.
+Select **Issue** on a book with an available copy, then enter the student's name and ID and confirm the issue date.
 
 A book with an active loan cannot be deleted. Return its outstanding loans first.
 
