@@ -119,7 +119,6 @@ Use the search box to match a book ID, title, or author, and the category menu t
 
 Select **Issue** on a book with an available copy, then enter the student's name and ID and confirm the issue date. The loan appears in **Recent loans**. Select **Return** and confirm when the book is returned; the return date is recorded and that copy becomes available again.
 
-A book with an active loan cannot be deleted. Return its outstanding loans first.
 
 ## Data and privacy
 
